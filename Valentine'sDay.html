@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Steph Ran,Valentine's Day">
+    <link rel="icon" type="image/psd" href="Meow🌷.psd">
+    <title>Valentine's Day🌷</title>
+    <style>
+        :root {
+            --gap-scale-factor: 250;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: center;
+            margin: 0;
+            padding: 75px 0;
+            background: linear-gradient(#ffffff, #f9d6d6);
+            font-family: "Steph", sans-serif;
+        }
+
+        @font-face {
+            font-family: "Steph";
+            src: url("assets/fonts/steph-font.ttf");
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Steph";
+            src: url("assets/fonts/steph-font-bold.ttf");
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 20px auto 0 auto;
+        }
+
+        #togepi-gif {
+            width: 500px;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 50px auto;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 75px;
+        }
+
+        button {
+            border-radius: 8px;
+            min-width: 100px;
+            max-width: 550px;
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            white-space: nowrap;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: transform 0.1s ease;
+        }
+
+        button:hover {
+            scale: 1.05;
+        }
+
+        #yes-btn {
+            transform-origin: center top;
+            color: white;
+            background-color: #57915e;
+        }
+
+        #no-btn {
+            color: white;
+            background-color: #db4e4e;
+        }
+
+        @media (max-width: 1150px) {
+        :root {
+            --gap-scale-factor: 200;
+        }
+
+        body {
+            padding-top: 70px;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        #togepi-gif {
+            width: 380px;
+            height: 304px;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 50px auto;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            border-radius: 8px;
+            min-width: 100px;
+            max-width: 400px;
+            border: none;
+            cursor: pointer;
+            padding: 10px 12px;
+            white-space: nowrap;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.1s ease;
+        }
+        }
+
+        @media (max-width: 600px) {
+        :root {
+            --gap-scale-factor: 50;
+        }
+        body {
+            padding-top: 100px;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        #togepi-gif {
+            width: 300px;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin: 32px auto;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            border-radius: 8px;
+            min-width: 60px;
+            max-width: 175px;
+            border: none;
+            cursor: pointer;
+            padding: 10px 12px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: transform 0.1s ease;
+        }
+        }  
+
+        .Text {
+            font-size: 76px;
+        }
+    </style>
+</head>
+<body>
+    <center class="Text">
+        <font face="Advert" color="plum">Vanetine</font><font face="Advert" color="pink">'s</font> <font face="Advert" color="red">Day</font>
+    </center>
+    <div class="container">
+        <!-- Gif -->
+        <img src="meow.gif" id="togepi-gif" alt="Meow"/>
+        <!-- Question -->
+        <h1 id="message">
+            <font face="Advert" color="#333">Will you be my Valentine? (˶ᵔ ᵕ ᵔ˶)</font>
+        </h1>
+    </div>
+        <!-- Buttons -->
+        <div class="btn-container">
+            <button id="yes-btn"  onclick="window.location.href='Yes.html'">Yes</button>
+            <button id="no-btn">No</button>
+        </div>
+    <script>
+        let noClicks = 1;
+        const maxNoClicks = 4;
+        const minNoScale = 0.65;
+        let noScale = 1;
+        let yesScale = 1; // This now tracks the scaling factor directly
+        const gifElement = document.getElementById("togepi-gif");
+        const noButton = document.getElementById("no-btn");
+        const yesButton = document.getElementById("yes-btn");
+        const buttonContainer = document.querySelector(".btn-container");
+        const yesButtonStyle = window.getComputedStyle(yesButton);
+        const maxYesWidth = parseFloat(yesButtonStyle.maxWidth);
+
+        // array of gifs - in order
+        const gifs = ["meow.gif", "Sad.gif", "Run.gif", "Sleep.gif"];
+        // array of messages
+        const buttonMessages = ["Are you sure??", "Pookie please", "Pookie PLEASE", "You can't do this to me!"];
+
+        // no button clicked
+        noButton.addEventListener("click", () => {
+            if (noClicks < maxNoClicks) {
+                // change image
+                gifElement.src = gifs[noClicks];
+            }
+
+            // change no button text
+            noButton.textContent = buttonMessages[noClicks % maxNoClicks];
+
+            // Adjust button width to fit text
+            noButton.style.width = 'auto';
+            noButton.style.width = `${noButton.scrollWidth}px`;
+
+            // decrease the size of the no button
+            if (noScale > minNoScale) {
+                noScale -= 0.1;
+                noButton.style.transform = `scale(${noScale})`;
+            }
+
+            // Calculate the scaled width of the yesButton
+            const baseWidth = parseFloat(yesButtonStyle.width);
+            const scaledWidth = baseWidth * yesScale; // Reflects the actual visual size of the button
+
+            console.log(`Scaled Width: ${scaledWidth}, Max Width: ${maxYesWidth}`);
+
+            // Check if the scaled width is less than the max width
+            if (scaledWidth < maxYesWidth) {
+                yesScale += 0.5; // Increment scale by a smaller step
+                yesButton.style.transform = `scale(${yesScale})`;
+
+                // Get the current gap scale factor from CSS
+                const rootStyles = getComputedStyle(document.documentElement);
+                const gapScaleFactor = parseFloat(rootStyles.getPropertyValue("--gap-scale-factor")) || 250;
+
+                // Adjust the gap dynamically
+                const currentGap = parseFloat(buttonContainer.style.gap) || 20;
+                const newGap = Math.sqrt(currentGap * gapScaleFactor); // Scale based on the factor
+                buttonContainer.style.gap = `${newGap}px`;
+            }
+
+            // increment the number of clicks
+            noClicks++;
+        });
+    </script>
+</body>
+</html>
